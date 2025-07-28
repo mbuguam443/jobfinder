@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: jobfinder
+    runtime: python
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --no-input
+      python manage.py migrate
+    startCommand: gunicorn jobfinder.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: your_project_name.settings
